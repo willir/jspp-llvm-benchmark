@@ -1,0 +1,48 @@
+
+unsigned int murmur(byte[] key, unsigned int seed) {
+    int h = (int) seed;
+
+    if (key.length > 3) {
+        int len = (key.length >> 2) << 2;
+        for (int i = 0; i < len; i += 4) {
+            int k = (byte) key[i + 3];
+
+            k <<= 8;
+            k |= (int) (byte) key[i + 2];
+
+            k <<= 8;
+            k |= (int) (byte) key[i + 1];
+
+            k <<= 8;
+            k |= (int) (byte) key[i];
+
+            k = (int) ((unsigned int) k * 0xcc9e2d51);
+            k = (k << 15) | (int) ((unsigned int) k >>> 17);
+            k = (int) ((unsigned int) k * 0x1b873593);
+            h ^= k;
+            h = (h << 13) | (int) ((unsigned int) h >>> 19);
+            h = (int) ((unsigned int) h * 5 + 0xe6546b64);
+        }
+    }
+    if ((key.length & 3) != 0) {
+        int i = key.length & 3;
+        int lastEvenI = (key.length >> 2) << 2;
+        int k = 0;
+        do {
+            k <<= 8;
+            k |= (int) (byte) key[lastEvenI + i - 1];
+        } while (--i > 0);
+        
+        k = (int) ((unsigned int)k * 0xcc9e2d51);
+        k = (k << 15) | (int) ((unsigned int) k >>> 17);
+        k = (int) ((unsigned int)k * 0x1b873593);
+        h ^= k;
+    }
+    h ^= key.length;
+    h ^= (int) ( (unsigned int) h >>> 16 );
+    h = (int) ((unsigned int)h * 0x85ebca6b);
+    h ^= (int) ( (unsigned int) h >>> 13 );
+    h = (int) ((unsigned int)h * 0xc2b2ae35);
+    h ^= (int) ( (unsigned int) h >>> 16 );
+    return (unsigned int) h;
+}
