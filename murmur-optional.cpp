@@ -12,7 +12,7 @@ static std::optional<uint8_t> get_my_arr(const Arr &arr, int32_t i) {
     }
 }
 
-uint32_t murmur3Cpp(const Arr &arr, uint32_t seed) {
+uint32_t murmur3CppOpt(const Arr &arr, uint32_t seed) {
     uint32_t h = seed;
 
     if (arr.len > 3) {
