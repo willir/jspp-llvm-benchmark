@@ -8,7 +8,7 @@
 #include "murmur.h"
 
 
-static constexpr size_t DATA_SIZE = 256 * 1024 + 0;
+static constexpr size_t DATA_SIZE = 256 * 1024 + 3;
 static constexpr uint32_t SEED = 1847734911;
 
 
