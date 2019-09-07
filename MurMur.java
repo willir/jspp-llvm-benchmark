@@ -58,11 +58,11 @@ class MurMur {
     int k1 = 0;
     switch (length - idx) {
       case 3:
-        k1 ^= data[offset + idx + 2] << 16;
+        k1 |= data[offset + idx + 2] << 16;
       case 2:
-        k1 ^= data[offset + idx + 1] << 8;
+        k1 |= data[offset + idx + 1] << 8;
       case 1:
-        k1 ^= data[offset + idx];
+        k1 |= data[offset + idx];
 
         // mix functions
         k1 *= C1_32;
@@ -94,6 +94,7 @@ class MurMur {
   }
   
   static final int DATA_SIZE = 256 * 1024 + 3;
+  static final int ITERATIONS = 1000;
 
   public static void main(String [] args) throws FileNotFoundException, IOException, Exception {
     String fileName = "/home/willir/tmp/rand";
@@ -109,11 +110,11 @@ class MurMur {
   
     int res = 0;
     long startTime = System.nanoTime();
-    for (int i = 0; i < 10000; ++i) {
+    for (int i = 0; i < ITERATIONS; ++i) {
       res += hash32(data, 0, data.length, 1847734911);
     }
     long stopTime = System.nanoTime();
     System.out.println("res: " + res);
-    System.out.println("time: " + (stopTime - startTime));
+    System.out.println("time: " + ((double)(stopTime - startTime)) / ITERATIONS / 1000 + "ms.");
   }
 }
