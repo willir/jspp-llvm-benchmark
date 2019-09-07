@@ -47,10 +47,10 @@ unsigned int murmur(byte[] key, unsigned int seed) {
     return (unsigned int) h;
 }
 
-unsigned int sum_my_arr(byte[] arr) {
-    unsigned int res = 0;
-    for (int i = 0; i < arr.length; ++i) {
-        res += arr[i] ?? 0;
-    }
-    return res;
-}
+//unsigned int sum_my_arr(byte[] arr) {
+//    unsigned int res = 0;
+//    for (int i = 0; i < arr.length; ++i) {
+//        res += arr[i] ?? 0;
+//    }
+//    return res;
+//}
